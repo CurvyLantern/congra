@@ -13,6 +13,7 @@
 		"@react-three/fiber": "^8.11.5",
 		"@tanstack/react-query": "^4.24.10",
 		"@types/three": "^0.149.0",
+		"leva": "^0.9.34",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"satellite.js": "^5.0.0",

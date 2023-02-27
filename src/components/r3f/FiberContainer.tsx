@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { Perf } from 'r3f-perf';
 import Lights from './Lights';
 import FiberScene from './FiberScene';
+import Camera from './Camera';
 
 // const geometry = new THREE.IcosahedronGeometry(0.5, 5);
 // const material = new THREE.MeshBasicMaterial({ color: 'red' });
@@ -20,8 +21,9 @@ const FiberContainer = () => {
 		<Canvas camera={{ position: [0, 0, 500] }} frameloop='always'>
 			<Lights />
 			<FiberScene />
+			<Camera />
 			<OrbitControls />
-			<Perf overClock />
+			<Perf overClock position={'top-left'} />
 		</Canvas>
 	);
 };
