@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import FiberContainer from './components/r3f/FiberContainer';
-
+import './App.css';
 // export const SateliteContext = createContext<{
 // 	data: any[];
 // }>({
@@ -8,7 +8,14 @@ import FiberContainer from './components/r3f/FiberContainer';
 // });
 
 const App = () => {
-	return <FiberContainer />;
+	return (
+		<div className='wrapper'>
+			<aside className='sidebar'></aside>
+			<main className='three_wrapper'>
+				<FiberContainer />
+			</main>
+		</div>
+	);
 };
 
 export default App;

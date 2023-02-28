@@ -1,23 +1,42 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Object3D } from 'three/src/core/Object3D';
-import { rawTle as rawTle2 } from '../../../gp2';
+import { useQuery } from '@tanstack/react-query';
 import { Position } from '../../utils/positionHelpers';
-import { batchTleToArray } from '../../utils/tleHelpers';
 import MyWorker from '../../ww/basicWorker?worker';
 
 const myWorker = new MyWorker();
+const fetcher = async () => {
+	const resp = await fetch('http://localhost:8000/v1/tle');
+	const data = await resp.json();
+	return data;
+};
+export type fetchType = { sat_name: string; tle: [string, string] }[];
 const Markers = () => {
-	const temp3D = useRef(new Object3D());
+	const { data, isLoading, isError } = useQuery<fetchType>({
+		queryKey: ['get_all_tle'],
+		queryFn: fetcher,
+		staleTime: 1000 * 60 * 60 * 24,
+	});
+
+	if (isError || isLoading || !data) {
+		return null;
+	}
+
+	return <MarkerInstance data={data} />;
+};
+const MarkerInstance = ({ data }: { data: fetchType }) => {
 	const ref = useRef<THREE.InstancedMesh>(null);
-	const [tleArr] = useState(batchTleToArray(rawTle2));
+	const temp3D = useRef(new Object3D());
 
 	useEffect(() => {
-		if (!ref.current || !tleArr) return;
-		myWorker.postMessage(tleArr);
-		myWorker.onmessage = event => {
+		if (!ref.current) return;
+		if (!data) return;
+		const listener = (event: MessageEvent<Position[]>) => {
 			// let oldTs = Date.now();
 			if (!ref.current) return;
-			let data = event.data as Position[];
+			if (!event.data) return;
+
+			let data = event.data;
 			for (let i = 0; i < data.length; i++) {
 				const [x, y, z] = data[i] ? data[i] : [0, 0, 0];
 				temp3D.current.position.set(x, y, z);
@@ -28,10 +47,16 @@ const Markers = () => {
 			// let diff = Date.now() - oldTs;
 			// console.log('time', diff);
 		};
-	}, []);
+		myWorker.postMessage(data);
+		myWorker.addEventListener('message', listener);
+
+		return () => {
+			myWorker.removeEventListener('message', listener);
+		};
+	}, [data]);
 
 	return (
-		<instancedMesh ref={ref} args={[undefined, undefined, tleArr.length]}>
+		<instancedMesh ref={ref} args={[undefined, undefined, data.length]}>
 			<icosahedronGeometry args={[0.5, 3]} />
 			<meshBasicMaterial color={'red'} />
 		</instancedMesh>

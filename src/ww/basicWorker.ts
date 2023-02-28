@@ -2,8 +2,8 @@
 
 import { myCustomSatInfo } from '../utils/parser';
 import { getPosition } from '../utils/positionHelpers';
-
 import { intervalTimer } from '../utils/constants';
+import { fetchType } from '../components/r3f/Markers';
 function getPercentage(number: number, total: number) {
 	return (number / total) * 100;
 }
@@ -13,15 +13,15 @@ function cutPercentage(total: number, percent: number) {
 
 let intervalId = 0;
 const earthRad = 6371; // in km
-const main = (tleArr: [string, string][]) => {
+const main = (tleData: fetchType) => {
 	clearInterval(intervalId);
 	intervalId = setInterval(() => {
 		let ts = Date.now();
 		const data = [];
-		data.length = tleArr.length;
-		for (let i = 0; i < tleArr.length; i++) {
+		data.length = tleData.length;
+		for (let i = 0; i < tleData.length; i++) {
 			try {
-				const tle = tleArr[i];
+				const { tle } = tleData[i];
 				// const { lat, lng } = getLatLngObj(tle, ts);
 				const { lat, lng, height } = myCustomSatInfo(tle, ts);
 				let heightPercentage = getPercentage(height, earthRad);
@@ -39,6 +39,6 @@ const main = (tleArr: [string, string][]) => {
 	}, intervalTimer);
 };
 
-onmessage = (event: MessageEvent<[string, string][]>) => {
+onmessage = (event: MessageEvent<fetchType>) => {
 	main(event.data);
 };
