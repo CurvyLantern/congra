@@ -4,6 +4,13 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
 }
+.three_wrapper {
+ position: relative; 
+}
 .sidebar {
-  background: red;
+}
+
+
+.my_perf_container {
+  position: absolute;
 }

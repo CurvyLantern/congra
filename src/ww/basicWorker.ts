@@ -36,6 +36,8 @@ const main = (tleData: fetchType) => {
 			}
 		}
 		postMessage(data);
+		const diff = Date.now() - ts;
+		// console.log('time takes ', diff);
 	}, intervalTimer);
 };
 
