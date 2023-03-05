@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import PointsMarkers from './PointsMarkers';
+import { SERVER_URL } from '../../utils/constants';
 
 const fetcher = async () => {
-	const url = import.meta.env.DEV ? 'http://localhost:8000' : 'https://congra-backend.onrender.com';
-	const resp = await fetch(`${url}/v1/tle`);
+	const resp = await fetch(`${SERVER_URL}/v1/tle`);
 	const data = await resp.json();
 	return data;
 };
