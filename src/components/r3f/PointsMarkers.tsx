@@ -1,18 +1,12 @@
-import { useRef, useEffect, useContext } from 'react';
-import { Float32BufferAttribute, Object3D } from 'three';
-import { Position } from '../../utils/positionHelpers';
-import { fetchType } from './Markers';
-import MyWorker from '../../ww/basicWorker?worker';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { BaseContext } from '../../App';
+import { Object3D } from 'three';
+import { Position } from '../../utils/positionHelpers';
+import MyWorker from '../../ww/basicWorker?worker';
+import { fetchType } from './Markers';
 
 const myWorker = new MyWorker();
-const fetcher = async () => {
-	const resp = await fetch('http://localhost:8000/v1/tle');
-	const data = await resp.json();
-	return data;
-};
+
 const PointsMarkers = ({ data }: { data: fetchType }) => {
 	const ref = useRef<THREE.Points | null>(null);
 	const temp3D = useRef(new Object3D());
