@@ -12,7 +12,7 @@ const Leftbar = () => {
         <h1 className="text-center">Satalite</h1>
         <BsArrowLeftShort
           onClick={() => setOpen(!open)}
-          className={`bg-white text-dirkPurple text-3xl rounded-full absolute -right-1 top-9 border-2  cursor-pointer ${
+          className={`bg-white text-dirkPurple text-3xl rounded-full absolute -right-1 top-9 border-2 border-white  cursor-pointer ${
             !open && "rotate-180"
           }`}
         />

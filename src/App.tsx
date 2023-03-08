@@ -55,7 +55,7 @@ const App = () => {
       }}
     >
       <div className="flex">
-        <div className="h-screen pt-6">
+        <div className="h-full pt-6">
           <Leftbar />
         </div>
         <div className="h-screen w-full container overflow-hidden">
