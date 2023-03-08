@@ -1,6 +1,5 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 // import FiberContainer from './components/r3f/FiberContainer';
-import './App.css';
 import Leftbar from './components/Sidebar/Leftbar';
 import SearchProvider from './contexts/SearchProvider';
 
@@ -20,13 +19,16 @@ const App = () => {
 	// });
 
 	return (
+		// container
 		<SearchProvider>
-			<div className='flex'>
-				<div className='h-screen pt-6'>
+			<div className='flex h-full'>
+				<div className=''>
 					<Leftbar />
 				</div>
-				<div className='h-screen w-full container overflow-hidden'>
-					<FiberContainer />
+				<div className=' flex-1 relative'>
+					<Suspense fallback={<div>Loading ....</div>}>
+						<FiberContainer />
+					</Suspense>
 				</div>
 			</div>
 		</SearchProvider>
