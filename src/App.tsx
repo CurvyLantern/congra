@@ -21,11 +21,11 @@ const App = () => {
   return (
     // container
     <SearchProvider>
-      <div className="flex h-full">
+      <div className="flex h-full ">
         <div className="">
           <Leftbar />
         </div>
-        <div className=" flex-1 relative">
+        <div className=" flex-1 relative ">
           <Suspense fallback={<div>Loading ....</div>}>
             <FiberContainer />
           </Suspense>
