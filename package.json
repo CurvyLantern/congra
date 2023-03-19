@@ -9,7 +9,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@headlessui/react": "^1.7.12",
+		"@headlessui/react": "^1.7.13",
+		"@heroicons/react": "^2.0.16",
 		"@msgpack/msgpack": "^2.8.0",
 		"@react-three/drei": "^9.56.27",
 		"@react-three/fiber": "^8.11.5",
