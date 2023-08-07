@@ -52,16 +52,22 @@ const PointsMarkers = ({ data }: { data: fetchType }) => {
 	}, [data]);
 
 	return (
-		<points ref={ref} args={[undefined, undefined]}>
-			{/* <icosahedronGeometry args={[0.5, 3]} /> */}
-			{/* <planeGeometry args={[1, 1]} /> */}
-			<bufferGeometry ref={geom}>
-				<float32BufferAttribute
-					args={[Array(data.length * 3).fill(0), 3]}
-					attach='attributes-position'></float32BufferAttribute>
-			</bufferGeometry>
-			<pointsMaterial color={'red'} size={2} sizeAttenuation={true} />
-		</points>
-	);
+    <points
+      ref={ref}
+      args={[undefined, undefined]}>
+      {/* <icosahedronGeometry args={[0.5, 3]} /> */}
+      {/* <planeGeometry args={[1, 1]} /> */}
+      <bufferGeometry ref={geom}>
+        <float32BufferAttribute
+          args={[Array(data.length * 3).fill(0), 3]}
+          attach="attributes-position"></float32BufferAttribute>
+      </bufferGeometry>
+      <pointsMaterial
+        color={"#FF8E8E"}
+        size={2}
+        sizeAttenuation={true}
+      />
+    </points>
+  );
 };
 export default PointsMarkers;
