@@ -4,4 +4,4 @@ export const one_second = 1000;
 export const intervalTimer = one_second;
 export const SERVER_URL = import.meta.env.DEV
   ? "http://localhost:8000"
-  : "https://satellite-tracker-backend.onrender.com/";
+  : "https://satellite-tracker-backend.onrender.com";
